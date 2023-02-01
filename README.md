@@ -15,3 +15,5 @@ Regression? - predicting the value/outcome
 
 Algorithim:
 Logistics Regression
+
+### Create an outline for the final dashboard with a storyboard of visualizations
