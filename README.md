@@ -4,16 +4,26 @@
 
 ### Topic and dataset
 Predict MVP of basketball game
+What is the most important statistic which defines who will be the MVP?
 
 ### Create a mockup of a machine learning model
 
 Model:
-Supervised as the data set has labels
+Supervised as the data set jas labeled
 
 Output of data:
 Regression? - predicting the value/outcome
 
 Algorithim:
-Logistics Regression
+Linear Regression
 
-### Create an outline for the final dashboard with a storyboard of visualizations
+### Roles
+
+ETL:
+ML:
+Dashboard:
+Readme:
+
+### Technologies
+Python
+Tableau
