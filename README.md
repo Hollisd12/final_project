@@ -3,11 +3,11 @@
 ## Plan
 
 ### Topic and dataset
-Predict MVP of basketball game
-What is the most important statistic which defines who will be the MVP?
-we’re basically trying to model how the media will vote for players this season
-Target value for our task will be Share column, between 0-1
-this is a task of ranking, try to approach as a regression problem
+- Predict MVP of basketball game
+- What is the most important statistic which defines who will be the MVP?
+- we’re basically trying to model how the media will vote for players this season
+- Target value for our task will be award share column, between 0-1
+- this is a task of ranking, try to approach as a regression problem
 
 ### Create a mockup of a machine learning model
 Model:
@@ -105,7 +105,7 @@ Interactive charts that displays
 - Win percentage vs award share
 
 ## Machine learning
-Training with different stats to see which affect the award share outcome
+Training with different stats to see which affect the award share outcome.
 First attempt with the following stats:
 - ts_pct
 - bpm
