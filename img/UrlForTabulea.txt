@@ -1,0 +1,14 @@
+Win Share:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/1?publish=yes
+
+Usage Rate:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/2?publish=yes
+
+Per for every players:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/3?publish=yes
+
+Rebound per games:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/4?publish=yes
+
+Relation between Win Share and FG Pct:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/5?publish=yes
