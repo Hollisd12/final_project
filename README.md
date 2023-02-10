@@ -12,19 +12,25 @@ this is a task of ranking, try to approach as a regression problem
 ### Create a mockup of a machine learning model
 Model:
 Supervised as the data set has labels
+
 Output of data:
 Regression
+
 Algorithim:
 Linear Regression
 
 ### Roles
 ETL: Delilah 
+
 ML: Delilah & Diego
+
 Dashboard: Samuel & Li
+
 Readme: All
 
 ### Technologies
 Python
+
 Tableau
 
 ### Sources
