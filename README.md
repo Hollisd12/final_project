@@ -73,16 +73,16 @@ What are the different types of statistics?
 ### Exploratory analysis
 
 Data is quite unbalanced, histogram of award share values, more than half of examples lie between 0.0 and 0.2 which can cause issues for models
-(histogram image)
+![award_share_occurrences](https://user-images.githubusercontent.com/112137694/217980130-8ae3fd2a-71aa-43cd-8cbb-38d4a3c3e578.png)
 
 #### Evaluate some advanced statistics compared to award share
-(points per game image)
-(win shares per 48 image)
-(win percentage image)
+![pts_per_g_vs_award_share](https://user-images.githubusercontent.com/112137694/217980144-82d77897-827c-46a8-9789-841b12a11b9d.png)
+![win_percentage_vs_award_share](https://user-images.githubusercontent.com/112137694/217980156-d36a0d97-0d4a-4c84-a208-cd0bf5a385b3.png)
+![win_shares_per_48_vs_award_share](https://user-images.githubusercontent.com/112137694/217980162-bc34f769-dfc9-4cd9-846f-af388d80a8ba.png)
 
 #### Identifying the most important statistics
 Created a correlation heatmap to visualize which variables are linearly related
-(heatmap image)
+![heatmap](https://user-images.githubusercontent.com/112137694/217980171-486b2ecc-add0-4bde-963a-86c66bfb59ef.png)
 
 - Notice that the advanced stats are the correlated the strongest with award share.
 - Remove stats that are highly correlated or features that will basically represent the same thing or can be represented by some scalar multiplications
