@@ -1,6 +1,49 @@
-# final_project
+image
 
-## Plan
+### Roles
+ETL: Delilah
+ML Model: Diego & Delilah
+Dashboard: Samuel & Li
+Readme: All
+
+## Overview of the project
+Description 
+
+### Data Source:
+[Kaggle data link](https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history)
+
+### Key questions to be answered:
+- Can we predict the NBA MVP based on statistics using machine learning?
+
+## Technical description?
+anticipated major challenges?
+
+## ETL Process
+Our data set includes key statistics for all NBA MVP candidates for each season since from 1980-81 through 2017-18.
+
+State	Description	Type
+ts_pct	True shooting percentage (factors in the value of 3-point field goals, free throws, and total number of field goal attempts)	Advanced
+usg_pct	Usage percentage (estimate of team plays which a player uses while on the court)	Advanced
+bpm	Box plus minus (evaluates player's quality and contribution to the team)	Advanced
+ws	Win shares (attempts to divide team success on indivudal members of the team)	Advanced
+ws_per_48	Win shares per 48 minutes	Advanced
+per	Player efficiency rating (calcualtion of all positive and negatives simple stats)	Advanced
+fga	Field goals attempted (# of field goals a player has attempted)	Simple
+fg3a	Three pointers attempted (# of 3-point field goals player has attempted)	Simple
+fta	Free throws attempted (# of free trhows player has attempted)	Simple
+g	Number of games played	Simple
+mp_per_g	Minutes per game (minutes per games played)	Simple
+pts_per_g	Points per game (# of points player has scored every game)	Simple
+trb_per_g	Rebounds per game (# of rebounts player has scored every game)	Simple
+ast_per_g	Assists per game (# of assists player has scored every game)	Simple
+stl_per_g	Steals per game (# of steals player has every game)	Simple
+blk_per_g	Blocks per game (# of blocks player has made every game)	Simple
+fg_pct	Gield goals percentage (% of field goals player makes)	Simple
+fg3_pct	Three pointer percentage (% of 3-point field goals player makes)	Simple
+ft_pct	Free throw percentage (% of free throws player makes)	Simple
+win_pct	Win percentage by the team (games won/games total)	Simple
+![image](https://user-images.githubusercontent.com/112137694/220790365-df2db091-03ec-4cf0-9210-822ffe5d9ffb.png)
+
 
 ### Topic and dataset
 - Predict MVP of basketball game
@@ -9,7 +52,6 @@
 - Target value for our task will be award share column, between 0-1
 - this is a task of ranking, try to approach as a regression problem
 
-Dataset = mvp_votings.csv
 
 ### Create a mockup of a machine learning model
 Model:
