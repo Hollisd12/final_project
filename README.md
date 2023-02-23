@@ -2,8 +2,11 @@
 
 ### Roles
 ETL: Delilah
+
 ML Model: Diego & Delilah
+
 Dashboard: Samuel & Li
+
 Readme: All
 
 ## Overview of the project
@@ -19,7 +22,7 @@ Description
 anticipated major challenges?
 
 ## ETL Process
-First, we reviewed our data set to see what we could learn about her data:
+First, we reviewed our data set to see what we could learn about our data:
 
 - Our data set includes key statistics for all NBA MVP candidates for each season since from 1980-81 through 2017-18
 - There are 38 seasons in the data set
@@ -44,10 +47,45 @@ There are different types of statistics being taken into consideration for our M
 - Advanced statistics: Go beyond basic stats. For example: player efficiency rating, win shares, box plus/minus, usage percentage, etc.
 
 Additionally, there are some columns and stats that we cannot use for our machine learning model as they directly tie into who won the MVP.
+
 - votes_first
 - points_won
 - points_max
 - award_share
+
+#### How is the MVP selected?
+The NBA MVP (Most Valuable Player) is selected by a panel of sportswriters and broadcasters from the United States and Canada, who vote at the end of the regular season. The voting process involves each panelist selecting five players for the award, ranked in order from first to fifth place.
+
+The NBA uses a points system to determine the winner, with each first-place vote worth 10 points, each second-place vote worth 7 points, each third-place vote worth 5 points, each fourth-place vote worth 3 points, and each fifth-place vote worth 1 point. The player with the highest point total is awarded the NBA MVP.
+
+In our data set, we can determine the MVP for each season based on points_won and award_share. award_share = points_won/points_max
+To show who won the MVP in our dataset, we added a column called Mvp? and set all values to No.
+![image](https://user-images.githubusercontent.com/112137694/220793484-291991f4-2b15-4c5b-80d0-94fc6125b397.png)
+
+Then, we looped through our dataset and updated the column to be Yes for the player with the highest points_won for each season.
+![image](https://user-images.githubusercontent.com/112137694/220793520-37c98c28-41bc-4c68-9839-93ae4fec14cb.png)
+![image](https://user-images.githubusercontent.com/112137694/220793560-3ea71acb-f500-4606-abc4-5b8de5fd2cde.png)
+
+### Identifying the most important statistics
+To help identify which statistics in our data set that have the biggest impact on who earns the MVP, we created a correlation heatmap. 
+
+![heatmap](https://user-images.githubusercontent.com/112137694/220793614-644a8d40-0dec-461d-8d8d-6ef9c0fba402.png)
+
+The correlation matrix is a good way of visualizing which features are very correlated and thus can be used to highlight duplicated infromation which in some situations doesn't help the model. We can review stats that represent similar statsitics and remove them from the model. 
+
+Additionally, we can review which statistics are more correlated with award_share and thus the player becoming MVP. 
+- per
+- bpm
+- pts_per_g
+- ws
+- ws_per_48
+
+We then took a look at the correlation around some advanced statistics and award_share.
+![pts_per_g_vs_award_share](https://user-images.githubusercontent.com/112137694/220794361-6536a573-fd97-44b7-b1e3-2437ab401d75.png)![win_percentage_vs_award_share](https://user-images.githubusercontent.com/112137694/220794408-f17f3444-1c79-4a82-b63f-d947f3b3cb18.png)
+![win_shares_per_48_vs_award_share](https://user-images.githubusercontent.com/112137694/220794387-c52a5dc1-7d08-484a-bb0b-1726afb1edef.png)
+
+
+
 
 ### Topic and dataset
 - Predict MVP of basketball game
