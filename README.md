@@ -165,11 +165,12 @@ We then calculated the mean squared error (MSE), mean absolute error (MAE), and 
 - The R-Squared value of -0.1454585206389547 indicates the proportion of variance in the target variable that can be explained by the features. In general, a high R-Squared value indicates that the model is a good fit for the data, while a low R-Squared value indicates that the model may not be a good fit for the data.
 
 #### Linear Regression Model
-(describe the second model here - maybe what this model is, why we chose it (to look for a more accurate model))
+
+Linear regression is a machine learning algorithm that predicts a continuous output variable based on one or more input variables. The algorithm aims to find the best linear relationship between the input and output variables. We chose to test the data with the linear regression model because linear regression may be more accurate when the relationship between the independent variables and the dependent variable is linear and when the data has low noise and outliers.
 
 ![image](https://user-images.githubusercontent.com/112137694/220799940-928f7771-41da-40fb-8104-3d2db23ca4d4.png)
 
-(Describe the code above, similar to our first code except the imports)
+In this model, we imported the LinearRegression algorithm from the sklearn library and applied the same two lists from the previous model containing the training seasons and testing seasons 
 
 ![image](https://user-images.githubusercontent.com/112137694/220800068-fa975933-bc93-4e98-b0b6-00bce77539a8.png)
 
