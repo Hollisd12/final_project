@@ -97,7 +97,7 @@ A correlation matrix is a table that displays the correlation coefficients betwe
 
 ![heatmap](https://user-images.githubusercontent.com/112137694/220793614-644a8d40-0dec-461d-8d8d-6ef9c0fba402.png)
 
-The correlation matrix is a good way of visualizing which features are very correlated and thus can be used to highlight duplicated information which in some situations doesn't help the model. With the matrix, we can review stats that represent similar statsitics and not include them in the model. 
+The correlation matrix is a good way of visualizing which features are very correlated and thus can be used to highlight duplicated information which in some situations doesn't help the model. With the matrix, we can review stats that represent similar statistics and not include them in the model. 
 
 Additionally, we can review which statistics are more correlated with award_share and thus the player becoming MVP. 
 
@@ -112,7 +112,7 @@ Based on our analysis and research we determined the following:
 - WS per 48 can be removed since it is just a scaled value of WS
 - The attempts stats will be removed since they are included in other stats
 
-#### Stastics to be used in our model
+#### Statistics to be used in our model
 From our evaluation and exploratory analysis, the final metrics we have decided to use in our model include:
 - ts_pct
 - bpm
@@ -135,7 +135,7 @@ In our machine learning model, we are attempting to predict how the media will v
 ![image](https://user-images.githubusercontent.com/112137694/221036598-ed70dc20-44a3-4681-8ef1-9be320739a53.png)
 ![image](https://user-images.githubusercontent.com/112137694/221036650-67809d47-9018-4803-b9f0-829991b6aeb6.png)
 
-- we read our mvp_statistics cvs file into a dataframe
+- we read our mvp_statistics CSV file into a dataframe
 - we dropped the first column which was unnamed and had no data
 
 ### The model
@@ -160,7 +160,7 @@ We then added code to add a new column to our dataframe of validation features t
 
 The Decision Tree Regressor model was able to predict the MVP for 4 out of the 8 seasons (50%).
 
-We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared) to evaluate the performance of our regression model.
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-squared) to evaluate the performance of our regression model.
 
 ![image](https://user-images.githubusercontent.com/112137694/220799296-1553cd72-3e95-4ec0-86f5-8aaa8e6c41a6.png)
 
@@ -180,7 +180,7 @@ In this model, we imported the LinearRegression algorithm from the sklearn libra
 
 ![image](https://user-images.githubusercontent.com/112137694/220800068-fa975933-bc93-4e98-b0b6-00bce77539a8.png)
 
-(This code is the same as the first model: we created a new DF, added the column for mvp_prediction, and added a column to show who won mvp based on predicition)
+(This code is the same as the first model: we created a new DF, added the column for mvp_prediction, and added a column to show who won mvp based on our models prediction)
 
 ![image](https://user-images.githubusercontent.com/112137694/221038356-4423e0fd-64a5-4901-924e-a67c82084b50.png)
 
@@ -188,7 +188,7 @@ In this model, we imported the LinearRegression algorithm from the sklearn libra
 
 The Linear Regression model predicted the MVPs correctly for 5 out of the 8 seasons (62.5%).
 
-We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-squared).
 
 ![image](https://user-images.githubusercontent.com/112137694/220800284-9e235907-b480-4774-80da-532fcc43063b.png)
 
@@ -215,9 +215,11 @@ We then took the same steps of creating a new dataframe with the validation feat
 
 ![image](https://user-images.githubusercontent.com/112137694/220801002-33fcf655-ff2c-4259-bb70-03b1c7e06941.png)
 
+##### Results of the model
+
 This model was able to accurately predict who would win the MVP for 6 out of the 8 testing seasons (75%).
 
-We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-squared).
 
 ![image](https://user-images.githubusercontent.com/112137694/220801180-24c3358b-817f-4730-8f7d-663ed42b2498.png)
 
@@ -233,18 +235,26 @@ This model is the most accurate out of every model we attempted. Overall, the re
 [Tableau Dashboard](https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/1_1?publish=yes)
 
 
-## Conculsion
+## Conclusion
+
+### Results
+We were able to create a machine learning model with good predicitve power for determining how the media would vote for the NBA MVP based on simple and advanved statistics. Our model was able to indicate that 67.5% of the variance in award_share is explained by the features (statistics) we selected for our model. However, 32.5% of the variance is unexplained. This variance may be because we do not have enough statistics taken into consideration in our model. Additionally, there may be other factors that affect how the media will vote other than the simple and advanced statistics.
+
+The panel of sportswriters and broadcasters that vote on the MVP may look at other factors other than the statistics that are included in our dataset. For example, they may look at things like media coverage. A player's narrative and storyline throughout the season and how it has impacted the league may also be considered. Additionally, voters may consider a player's overall career achievements and how their performance in a given season compares to other great seasons in NBA history. All of these items are not included in our data set or may hard to include in a model.
+
+### Recommendations for future analysis
+- More data could be beneficial in providing a more adequate model. For example: media coverage
+- Knowledge of voting history and trends may be helpful. Voting has probably changed over the years and the stats that may have been more important in the past may not be as important today.
+
+### What would we have done differently if we had more time allocated for the project
+- Our dataset only includes data for NBA MVP candidates up until the 2017-2018 season. If we had more time, we could scrape and collect data for the last 5 seasons.
+- With the data for the last few seasons included, we could also scrape player statistics for the current 2022-2023 seasons to attempt to predict who will win the MVP for this season. 
+
+
 Data is quite unbalanced, histogram of award share values, more than half of examples lie between 0.0 and 0.2 which can cause issues for models
 ![award_share_occurrences](https://user-images.githubusercontent.com/112137694/217980130-8ae3fd2a-71aa-43cd-8cbb-38d4a3c3e578.png)
 
 
 ### Sources
-Primary source of data: https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history
-- https://towardsdatascience.com/predicting-2018-19-nbas-most-valuable-player-using-machine-learning-512e577032e3
-- https://github.com/danchyy/Basketball_Analytics/blob/master/Scripts/2018_19_season/mvp_predictions/Predicting%20MVP.ipynb
-
-Second source: https://www.kaggle.com/code/samfenske/predicting-nba-mvp-with-advanced-stats/notebook
-
-Third source: https://medium.com/@atharvjoshi/predicting-the-2022-2023-nba-mvp-using-python-76cabf4422fd
-
-
+https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history
+https://www.basketball-reference.com/about/glossary.html
