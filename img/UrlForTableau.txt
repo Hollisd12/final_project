@@ -10,6 +10,9 @@ https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444
 Rebound per games:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/4?publish=yes
 
+MVPs WinShare & Votes First:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/14?publish=yes
+
 Relation between Win Share and FG Pct:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/5?publish=yes
 
