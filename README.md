@@ -137,11 +137,11 @@ In our machine learning model, we are attempting to predict how the media will v
 
 #### Decision Tree Regressor
 In our first attempt, we created a Decision Tree Regressor model
-(describe the first model here - decision tree)
+is a machine learning algorithm that predicts a continuous numeric value using a tree-like model of decisions and their outcomes. The algorithm recursively splits the data based on input feature values until a stopping criterion is met. 
  
 ![image](https://user-images.githubusercontent.com/112137694/220798521-713e2ba3-a18e-4491-bb40-8656ee0b1862.png)
 
-(add a quick description of the code above, what we are importing, the different training vs testing seasons, etc.)
+In this model, we imported the DecisionTreeRegressor algorithm from the sklearn library. We created a list containing 30 random seasons for the training seasons out of the 38. For the testing seasons, we created a list of the remaining 8 seasons. The code was explicitly written this way, where no training season was included in the testing season to ensure the model was not provided with helpful information to determine who the MVP was.
 
 Next, we created a new dataframe from the validation features and added a prediction column. The prediction column is where the model will predict the award_shares.
 
