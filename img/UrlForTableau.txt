@@ -12,3 +12,6 @@ https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444
 
 Relation between Win Share and FG Pct:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/5?publish=yes
+
+Dashboard:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/1_1?publish=yes
