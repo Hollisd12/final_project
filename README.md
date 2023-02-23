@@ -10,16 +10,13 @@ Dashboard: Samuel & Li
 Readme: All
 
 ## Overview of the project
-Description 
+This project is designed to analyze basketball player statistics and determine if we can accurately predict who will win the MVP (most valuable player) of the season using machine learning. Essentially, we are attempting to model how the media will vote for players based on their statistics. 
 
 ### Data Source:
 [Kaggle data link](https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history)
 
 ### Key questions to be answered:
 - Can we predict the NBA MVP based on statistics using machine learning?
-
-## Technical description?
-anticipated major challenges?
 
 ## ETL Process
 First, we reviewed our data set to see what we could learn about our data:
@@ -40,6 +37,7 @@ To better understand our data, we had to perform research on how the NBA MVP is 
 
 #### What do the stats mean?
 ![image](https://user-images.githubusercontent.com/112137694/220790365-df2db091-03ec-4cf0-9210-822ffe5d9ffb.png)
+
 [source](https://www.basketball-reference.com/about/glossary.html)
 
 There are different types of statistics being taken into consideration for our MVPs:
@@ -77,19 +75,19 @@ The first graph we created was for points_per_g vs award_share
 
 ![pts_per_g_vs_award_share](https://user-images.githubusercontent.com/112137694/220794361-6536a573-fd97-44b7-b1e3-2437ab401d75.png)
 
-In the graph we plotted all players from all seasons and then we changed the color of the points to depend on if the player was the MVP or not. From a quick glance, it seems like points per game does have some impact on award shares.
+In the graph we plotted all players from all seasons and then we changed the color of the points to depend on if the player was the MVP or not. From a quick glance, it seems like there is a minor correlation between points per game and award shares. However, we can't ignore all those players with high points per game and low award shares. This means there must be other factors affecting award shares.
 
 Next, we analyzed win_pct vs award_share:
 
 ![win_percentage_vs_award_share](https://user-images.githubusercontent.com/112137694/220794408-f17f3444-1c79-4a82-b63f-d947f3b3cb18.png)
 
-Again, we can see a trend between MVPs and their win percentage. 
+Again, we can see a small trend between MVPs and their win percentage. However, there has to be other factors in play in determining the award_shares, not just win percentage.
 
 The last graph we created was for ws vs award_share:
 
 ![win_shares_per_48_vs_award_share](https://user-images.githubusercontent.com/112137694/220794387-c52a5dc1-7d08-484a-bb0b-1726afb1edef.png)
 
-Again, this graph looks similar to the previous two graphs. It seems our advanced statistics have some correlation with who will win the MVP.
+Again, this graph looks similar to the previous two graphs. It seems our advanced statistics have some slight correlation with who will win the MVP, however, other factors must be in play.
 
 #### Correlation matrix
 
@@ -101,13 +99,14 @@ The correlation matrix is a good way of visualizing which features are very corr
 
 Additionally, we can review which statistics are more correlated with award_share and thus the player becoming MVP. 
 
-Based on our analysis and research we can determine the following:
+Based on our analysis and research we determined the following:
 
-- BPM and PER represent a similar stat so we will only use BPM in our model
+- Remove stats that are highly correlated or features that will basically represent the same thing or can be represented by some scalar multiplications
+- BPM and PER represent similar stat.
 - Points per game is directly connected with usage
-- We will remove all percentages statistics because true shooting percentage is sufficient
-- We will not include win shares per 48 as it is just a scaled value of win shares and win shares is a better stat (more correlated with award_share)
-- Attempts statistics will be removed since they are included in the usage stat
+- Can remove percentages because true shooting percentage is enough. Also, WS per 48 can be removed since it is just a scaled value of WS
+- Also, the attempts will be removed since they are included in usage stat.
+- Since per and BPM model similiar stat, only need to use one stat in the model
 
 #### Stastics to be used in our model
 From our evaluation and exploratory analysis, the final metrics we have decided to use in our model include:
@@ -122,32 +121,107 @@ From our evaluation and exploratory analysis, the final metrics we have decided 
 - ws
 - win_pct
 
+## Machine Learning Models
+In our machine learning model, we are attempting to predict how the media will vote for players to be the MVP based on their statistics. The target value for our task will be the award_share column which is between 0-1. Our model will be a supervised learning model as our data set has labels.
+
+### Questions to answer
+- Can we predict how the media will vote for players this season and if they will be the MVP?
+
+### Setting up the data
+![image](https://user-images.githubusercontent.com/112137694/220798322-b9551c0a-dbc4-49f6-bd22-1505e85ea12a.png)
+
+- the dataframe we used included our mvp_statistics cvs file
+- we dropped the first column which was unnamed and had no data
+
+### The model
+
+#### Decision Tree Regressor
+In our first attempt, we created a Decision Tree Regressor model
+(describe the first model here - decision tree)
+ 
+![image](https://user-images.githubusercontent.com/112137694/220798521-713e2ba3-a18e-4491-bb40-8656ee0b1862.png)
+
+(add a quick description of the code above, what we are importing, the different training vs testing seasons, etc.)
+
+Next, we created a new dataframe from the validation features and added a prediction column. The prediction column is where the model will predict the award_shares.
+
+![image](https://user-images.githubusercontent.com/112137694/220798902-924f62ff-8db6-4e93-8e7e-e3869d3b265d.png)
+![image](https://user-images.githubusercontent.com/112137694/220798986-19f06ef9-0cc3-4cde-805e-969a467afd49.png)
+
+We then added code to add a new column to our dataframe of validation features to display who the predicted MVP for each season is, based on the prediction column. 
+
+![image](https://user-images.githubusercontent.com/112137694/220799119-0542cc81-097c-41ca-8df9-05ce267a0cec.png)
+
+##### Results of the model
+
+The Decision Tree Regressor model was able to predict the MVP for 4 out of the 8 seasons (50%).
+
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
+
+![image](https://user-images.githubusercontent.com/112137694/220799296-1553cd72-3e95-4ec0-86f5-8aaa8e6c41a6.png)
+
+- MSE of 0.07881568253968253 indicates that, on average, the model's predictions deviate by 0.08 from the actual target values. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
+- MAE of 0.1669682539682539 indicates that, on average, the model's predictions deviate by 0.14 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
+- The R-Squared value of -0.1454585206389547 indicates the proportion of variance in the target variable that can be explained by the features. In general, a high R-Squared value indicates that the model is a good fit for the data, while a low R-Squared value indicates that the model may not be a good fit for the data.
+
+#### Linear Regression Model
+(describe the second model here - maybe what this model is, why we chose it (to look for a more accurate model))
+
+![image](https://user-images.githubusercontent.com/112137694/220799940-928f7771-41da-40fb-8104-3d2db23ca4d4.png)
+
+(Describe the code above, similar to our first code except the imports)
+
+![image](https://user-images.githubusercontent.com/112137694/220800068-fa975933-bc93-4e98-b0b6-00bce77539a8.png)
+
+(This code is the same as the first model: we created a new DF, added the column for mvp_prediction, added a column to show who won mvp based on predicition)
+
+##### Results of the model
+
+The Linear Regression model predicted the MVPs correctly for 5 out of the 8 seasons (62.5%).
+
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
+
+![image](https://user-images.githubusercontent.com/112137694/220800284-9e235907-b480-4774-80da-532fcc43063b.png)
+
+- MSE of 0.029840141347939504 indicates that, on average, the model's predictions deviate by 0.03 from the actual target values. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
+- MAE of 0.1351533088374249 indicates that, on average, the model's predictions deviate by 0.14 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
+- The R-Squared value of 0.5663217894882959 indicates the proportion of variance in the target variable that can be explained by the features. An R-Squared value of 0.566 means that 56.6% of the variance in the target variable can be explained by the features. 
+
+Overall, this model is way more accurate than the decision tree model, as seen by the statistics and our MVP predictions.
+
+### Random Forest Regressor Model
+The last model we tried was the random forest regressor model. We chose this model because __. We started the model out similarly to the previous two, by creating the same initial dataframe.
+
+![image](https://user-images.githubusercontent.com/112137694/220800548-b03cfa20-a63d-4040-9cb2-143a6c72c84f.png)
+
+In this model, we imported the RandomForestRegressor algorithm from the sklearn library. We used the same seasons for training and testing as the previous two models. 
+
+![image](https://user-images.githubusercontent.com/112137694/220800785-d698976c-cc34-4091-9b42-03a714fd8336.png)
+
+We then took the same steps of creating a new dataframe with the features used in the model, the player, and season. We then added a new column called mvp_predictions where we populated the models prediction of award_share for each player. Then, we added a column that showed us which players the model would predict would win the MVP based on mvp_prediction (predicted award_shares). 
+
+![image](https://user-images.githubusercontent.com/112137694/220801002-33fcf655-ff2c-4259-bb70-03b1c7e06941.png)
+
+This model was able to accurately predict who would win the MVP for 6 out of the 8 testing seasons, for a 75% accuracy.
+
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
+
+![image](https://user-images.githubusercontent.com/112137694/220801180-24c3358b-817f-4730-8f7d-663ed42b2498.png)
+
+- MSE of 0.022307539351587306 indicates that, on average, the model's predictions deviate by 0.022 from the actual target values. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
+- MAE of 0.09895563492063493 indicates that, on average, the model's predictions deviate by 0.099 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
+- The R-Squared value of 0.6757959811881447 indicates the proportion of variance in the target variable that can be explained by the features. An R-Squared value of 0.675 means that 67.5% of the variance in the target variable can be explained by the features, while 32.5% of the variance is unexplained. 
+
+This model is the most accurate out of every model we attempted. An r-squared value of 0.675 is 
+
+## Dashboard
+(Add link to dashboard)
 
 
-### Topic and dataset
-- Predict MVP of basketball game
-- What is the most important statistic which defines who will be the MVP?
-- we’re basically trying to model how the media will vote for players this season
-- Target value for our task will be award share column, between 0-1
-- this is a task of ranking, try to approach as a regression problem
+## Conculsion
+Data is quite unbalanced, histogram of award share values, more than half of examples lie between 0.0 and 0.2 which can cause issues for models
+![award_share_occurrences](https://user-images.githubusercontent.com/112137694/217980130-8ae3fd2a-71aa-43cd-8cbb-38d4a3c3e578.png)
 
-
-### Create a mockup of a machine learning model
-Model:
-Supervised as the data set has labels
-
-Output of data:
-Regression
-
-Algorithim:
-Linear Regression
-
-
-
-### Technologies
-Python
-
-Tableau
 
 ### Sources
 Primary source of data: https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history
@@ -158,73 +232,4 @@ Second source: https://www.kaggle.com/code/samfenske/predicting-nba-mvp-with-adv
 
 Third source: https://medium.com/@atharvjoshi/predicting-the-2022-2023-nba-mvp-using-python-76cabf4422fd
 
-
-
-### Background
-What do the stats mean? (source: https://www.basketball-reference.com/about/glossary.html)
-- Fga( Field Goals Attempted ) : Definition The number of field goals that a player or team has attempted(include 2 and 3 score)
-- Fg3a(3-Point Field Goal Attempts) : The number of 3-point field goals that a team or player attempts.
-- fta(Free Throws Attempted) : The number of free throws that a team or player attempts.
-- bpm(Box Plus/Minus) : Is a statistic used to evaluate basketball players’ quality and contribution to the team
-- g(games) : number of games that player has played
-- ws(Win Share) : Win Share is a measure that is assigned to players based on their offense, defense, and playing time.
-- ws_per_48 : WS/48 is win shares per 48 minutes
-- ts_pct(True Shooting_Percentile) : A shooting percentage that factors in the value of 3-point field goals and free throws in addition to the total number of field goal attempts.
-- usg_pct(Usage Percentile) : percentage of team plays a player was involved in while he was on the floor
-- fg_pct(Field Goal Percentile) :  The percentage of field goals that a team or player makes(include 2 and 3 score)
-- fg3_pct(3-Point Field Goal Percentile) : Field Goal that players take in every games
-- ft_pct(Free Throws Percentile) : The percentage of free thow attempts that a team or player makes
-- pts_per_g(Points per games) : The number of points a team or player has scored in every games
-- trb_per_g(Total rebound per games) : number of rebound that player has taken in every games
-- ast_per_g(Assists per games) :Numbers of assist that players earn for making a pass that leads directly to a teammate's made basket in every games
-- stl_per_g(Steals per games) : Numbers of steal that players get in every games.
-- blk_per_g(blocks per games) : Numbers of blocks that players do in every games
-- per (player efficiency rating): A calculation of all positives and negatives simple stats
-- mp_per_g (minutes per game): minutes per games played
-
-What are the different types of statistics?
-- Counting stats: simple frequency-based numbers such as: games played, minutes per game, points per game, assists per game, etc.
-- Advanced statistics: go beyond basic stats. for example: player efficiency rating, win shares, box plus/minus, usage percentage, etc.
-
-### Exploratory analysis
-
-Data is quite unbalanced, histogram of award share values, more than half of examples lie between 0.0 and 0.2 which can cause issues for models
-![award_share_occurrences](https://user-images.githubusercontent.com/112137694/217980130-8ae3fd2a-71aa-43cd-8cbb-38d4a3c3e578.png)
-
-#### Evaluate some advanced statistics compared to award share
-![pts_per_g_vs_award_share](https://user-images.githubusercontent.com/112137694/217980144-82d77897-827c-46a8-9789-841b12a11b9d.png)
-![win_percentage_vs_award_share](https://user-images.githubusercontent.com/112137694/217980156-d36a0d97-0d4a-4c84-a208-cd0bf5a385b3.png)
-![win_shares_per_48_vs_award_share](https://user-images.githubusercontent.com/112137694/217980162-bc34f769-dfc9-4cd9-846f-af388d80a8ba.png)
-
-#### Identifying the most important statistics
-Created a correlation heatmap to visualize which variables are linearly related
-![heatmap](https://user-images.githubusercontent.com/112137694/217980171-486b2ecc-add0-4bde-963a-86c66bfb59ef.png)
-
-- Notice that the advanced stats are the correlated the strongest with award share.
-- Remove stats that are highly correlated or features that will basically represent the same thing or can be represented by some scalar multiplications
-- BPM and PER represent similar stat.
-- Points per game is directly connected with usage
-- Can remove percentages because true shooting percentage is enough. Also, WS per 48 can be removed since it is just a scaled value of WS
-- Also, the attempts will be removed since they are included in usage stat.
-- Since per and BPM model similiar stat, only need to use one stat in the model
-
-## Dashboard
-Interactive charts that displays 
-- Points Per Game vs Award Share
-- Win shares per 48 vs award share
-- Win percentage vs award share
-
-## Machine learning
-Training with different stats to see which affect the award share outcome.
-First attempt with the following stats:
-- ts_pct
-- bpm
-- mp_per_g
-- pts_per_g
-- trb_per_g
-- ast_per_g
-- stl_per_g
-- blk_per_g
-- ws
-- win_pct
 
