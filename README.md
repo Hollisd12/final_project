@@ -212,10 +212,10 @@ We then calculated the mean squared error (MSE), mean absolute error (MAE), and 
 - MAE of 0.09895563492063493 indicates that, on average, the model's predictions deviate by 0.099 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
 - The R-Squared value of 0.6757959811881447 indicates the proportion of variance in the target variable that can be explained by the features. An R-Squared value of 0.675 means that 67.5% of the variance in the target variable can be explained by the features, while 32.5% of the variance is unexplained. 
 
-This model is the most accurate out of every model we attempted. An r-squared value of 0.675 is 
+This model is the most accurate out of every model we attempted. An r-squared value of 0.675 is good for our model
 
 ## Dashboard
-(Add link to dashboard)
+[Tableau Dashboard](https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/1_1?publish=yes)
 
 
 ## Conculsion
