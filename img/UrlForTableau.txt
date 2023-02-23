@@ -13,6 +13,9 @@ https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444
 MVPs WinShare & Votes First:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/14?publish=yes
 
+MVPs Fg Pct & WinShare:
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/15?publish=yes
+
 Relation between Win Share and FG Pct:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/5?publish=yes
 
