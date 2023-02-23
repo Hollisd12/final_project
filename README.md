@@ -234,13 +234,19 @@ This model is the most accurate out of every model we attempted. Overall, the re
 ## Dashboard
 [Tableau Dashboard](https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/1_1?publish=yes)
 
+## Challenges
+We have 38 seasons with 10-31 players in each season with only one MVP per season, this can negatively affect or model as we don't have an equal number of MVPs and nonMVPs. Additionally, we were attempting to predict award_shares. However, our data is quite unbalanced as the majority of our players lie between 0.0 and 0.2 which can cause issues for models.
+
+![award_share_occurrences](https://user-images.githubusercontent.com/112137694/217980130-8ae3fd2a-71aa-43cd-8cbb-38d4a3c3e578.png)
+
+These factors led to us having to create multiple different models until we found the one that was the most accurate. Additionally, we had so many statistics in our dataset, selecting the right ones to include took some time. 
 
 ## Conclusion
 
 ### Results
 We were able to create a machine learning model with good predicitve power for determining how the media would vote for the NBA MVP based on simple and advanved statistics. Our model was able to indicate that 67.5% of the variance in award_share is explained by the features (statistics) we selected for our model. However, 32.5% of the variance is unexplained. This variance may be because we do not have enough statistics taken into consideration in our model. Additionally, there may be other factors that affect how the media will vote other than the simple and advanced statistics.
 
-The panel of sportswriters and broadcasters that vote on the MVP may look at other factors other than the statistics that are included in our dataset. For example, they may look at things like media coverage. A player's narrative and storyline throughout the season and how it has impacted the league may also be considered. Additionally, voters may consider a player's overall career achievements and how their performance in a given season compares to other great seasons in NBA history. All of these items are not included in our data set or may hard to include in a model.
+For example, voters may look at things like media coverage. A player's narrative and storyline throughout the season and how it has impacted the league may also be considered. Additionally, voters may consider a player's overall career achievements and how their performance in a given season compares to other great seasons in NBA history. All of these items are not included in our data set or may hard to include in a model.
 
 ### Recommendations for future analysis
 - More data could be beneficial in providing a more adequate model. For example: media coverage
@@ -250,11 +256,7 @@ The panel of sportswriters and broadcasters that vote on the MVP may look at oth
 - Our dataset only includes data for NBA MVP candidates up until the 2017-2018 season. If we had more time, we could scrape and collect data for the last 5 seasons.
 - With the data for the last few seasons included, we could also scrape player statistics for the current 2022-2023 seasons to attempt to predict who will win the MVP for this season. 
 
-
-Data is quite unbalanced, histogram of award share values, more than half of examples lie between 0.0 and 0.2 which can cause issues for models
-![award_share_occurrences](https://user-images.githubusercontent.com/112137694/217980130-8ae3fd2a-71aa-43cd-8cbb-38d4a3c3e578.png)
-
-
 ### Sources
 https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history
+
 https://www.basketball-reference.com/about/glossary.html
