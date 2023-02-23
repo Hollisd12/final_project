@@ -1,4 +1,4 @@
-image
+![image](https://user-images.githubusercontent.com/112137694/220790464-f94fa080-620b-4a33-b119-047441765c53.png)
 
 ### Roles
 ETL: Delilah
@@ -19,31 +19,35 @@ Description
 anticipated major challenges?
 
 ## ETL Process
-Our data set includes key statistics for all NBA MVP candidates for each season since from 1980-81 through 2017-18.
+First, we reviewed our data set to see what we could learn about her data:
 
-State	Description	Type
-ts_pct	True shooting percentage (factors in the value of 3-point field goals, free throws, and total number of field goal attempts)	Advanced
-usg_pct	Usage percentage (estimate of team plays which a player uses while on the court)	Advanced
-bpm	Box plus minus (evaluates player's quality and contribution to the team)	Advanced
-ws	Win shares (attempts to divide team success on indivudal members of the team)	Advanced
-ws_per_48	Win shares per 48 minutes	Advanced
-per	Player efficiency rating (calcualtion of all positive and negatives simple stats)	Advanced
-fga	Field goals attempted (# of field goals a player has attempted)	Simple
-fg3a	Three pointers attempted (# of 3-point field goals player has attempted)	Simple
-fta	Free throws attempted (# of free trhows player has attempted)	Simple
-g	Number of games played	Simple
-mp_per_g	Minutes per game (minutes per games played)	Simple
-pts_per_g	Points per game (# of points player has scored every game)	Simple
-trb_per_g	Rebounds per game (# of rebounts player has scored every game)	Simple
-ast_per_g	Assists per game (# of assists player has scored every game)	Simple
-stl_per_g	Steals per game (# of steals player has every game)	Simple
-blk_per_g	Blocks per game (# of blocks player has made every game)	Simple
-fg_pct	Gield goals percentage (% of field goals player makes)	Simple
-fg3_pct	Three pointer percentage (% of 3-point field goals player makes)	Simple
-ft_pct	Free throw percentage (% of free throws player makes)	Simple
-win_pct	Win percentage by the team (games won/games total)	Simple
+- Our data set includes key statistics for all NBA MVP candidates for each season since from 1980-81 through 2017-18
+- There are 38 seasons in the data set
+- This data set includes statistics for all MVP candidates (players) for each season
+- Each season has between 10-31 players
+
+![image](https://user-images.githubusercontent.com/112137694/220791298-e482e5c2-e6df-4556-b22c-c1ac2676af23.png)
+
+Then, we checked for null values and determined there were none:
+
+![image](https://user-images.githubusercontent.com/112137694/220791453-077e14d9-d343-4e46-9be3-52f97b8f50aa.png)
+
+### Background
+To better understand our data, we had to perform research on how the NBA MVP is chosen and what each statistic (column) means. 
+
+#### What do the stats mean?
 ![image](https://user-images.githubusercontent.com/112137694/220790365-df2db091-03ec-4cf0-9210-822ffe5d9ffb.png)
 
+There are different types of statistics being taken into consideration for our MVPs:
+
+- Simple statistics: Simple frequency-based numbers such as: games played, minutes per game, points per game, assists per game, etc.
+- Advanced statistics: Go beyond basic stats. For example: player efficiency rating, win shares, box plus/minus, usage percentage, etc.
+
+Additionally, there are some columns and stats that we cannot use for our machine learning model as they directly tie into who won the MVP.
+- votes_first
+- points_won
+- points_max
+- award_share
 
 ### Topic and dataset
 - Predict MVP of basketball game
