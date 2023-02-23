@@ -10,7 +10,7 @@ Dashboard: Samuel & Li
 Readme: All
 
 ## Overview of the project
-This project is designed to analyze basketball player statistics and determine if we can accurately predict who will win the MVP (most valuable player) of the season using machine learning. Essentially, we are attempting to model how the media will vote for players based on their statistics. 
+This project is designed to analyze basketball player statistics and determine if we can accurately predict who will win the NBA's MVP (most valuable player) of the season using machine learning. Essentially, we are attempting to model how the media will vote for players based on their statistics. 
 
 ### Data Source:
 [Kaggle data link](https://www.kaggle.com/datasets/danchyy/nba-mvp-votings-through-history)
@@ -21,16 +21,16 @@ This project is designed to analyze basketball player statistics and determine i
 ## ETL Process
 First, we reviewed our data set to see what we could learn about our data:
 
-- Our data set includes key statistics for all NBA MVP candidates for each season since from 1980-81 through 2017-18
-- There are 38 seasons in the data set
-- This data set includes statistics for all MVP candidates (players) for each season
+- Our data set includes key statistics for all NBA MVP candidates for each season from 1980-81 through 2017-18
+- There are 38 seasons in the dataset
+- This dataset includes statistics for all MVP candidates (players) for each season
 - Each season has between 10-31 MVP candidates (players)
 
-![image](https://user-images.githubusercontent.com/112137694/220791298-e482e5c2-e6df-4556-b22c-c1ac2676af23.png)
+![image](https://user-images.githubusercontent.com/112137694/221042303-22a5b0ab-61af-4ce8-9e6c-1244dd7a8b52.png)
 
 Then, we checked for null values and determined there were none:
 
-![image](https://user-images.githubusercontent.com/112137694/220791453-077e14d9-d343-4e46-9be3-52f97b8f50aa.png)
+![image](https://user-images.githubusercontent.com/112137694/221042056-a4f85a25-cd7b-42b1-8cc0-57646c0f7d95.png)
 
 ### Background
 To better understand our data, we had to perform research on how the NBA MVP is chosen and what each statistic (column) means. 
@@ -57,25 +57,25 @@ The NBA MVP (Most Valuable Player) is selected by a panel of sportswriters and b
 
 The NBA uses a points system to determine the winner, with each first-place vote worth 10 points, each second-place vote worth 7 points, each third-place vote worth 5 points, each fourth-place vote worth 3 points, and each fifth-place vote worth 1 point. The player with the highest point total is awarded the NBA MVP.
 
-In our data set, we can determine the MVP for each season based on points_won and award_share. 
+Our data set doesn't explicitly state who is the MVP. However, we can determine the MVP for each season based on points_won and award_share. 
 
 To show who won the MVP in our dataset, we added a column called Mvp? and set all values to No.
 
-![image](https://user-images.githubusercontent.com/112137694/220793484-291991f4-2b15-4c5b-80d0-94fc6125b397.png)
+![image](https://user-images.githubusercontent.com/112137694/221042436-63884f5c-77dd-424c-8dfc-c9ae48e1713f.png)
 
 Then, we looped through our dataset and updated the column to be Yes for the player with the highest points_won for each season.
 
-![image](https://user-images.githubusercontent.com/112137694/220793520-37c98c28-41bc-4c68-9839-93ae4fec14cb.png)
-![image](https://user-images.githubusercontent.com/112137694/220793560-3ea71acb-f500-4606-abc4-5b8de5fd2cde.png)
+![image](https://user-images.githubusercontent.com/112137694/221042501-b7092b02-282e-417a-9b87-d492a82f6830.png)
+![image](https://user-images.githubusercontent.com/112137694/221042562-fcbd371f-09e4-443a-b7c3-4f99540e4200.png)
 
 ### Identifying the most important statistics
-In our model, our target variable will be award_share. We started our exploratory analysis of our data to try and visualize the relationship between some advanced statistics and award_share.
+In our model, our target variable will be award_share. When we started our exploratory analysis of our data, we attempted to try and visualize the relationship between some advanced statistics and award_share.
 
 The first graph we created was for points_per_g vs award_share
 
 ![pts_per_g_vs_award_share](https://user-images.githubusercontent.com/112137694/220794361-6536a573-fd97-44b7-b1e3-2437ab401d75.png)
 
-In the graph we plotted all players from all seasons and then we changed the color of the points to depend on if the player was the MVP or not. From a quick glance, it seems like there is a minor correlation between points per game and award shares. However, we can't ignore all those players with high points per game and low award shares. This indicates that there must be other factors affecting award shares.
+In the graph we plotted all players from all seasons and then we changed the color of the points to depend on if the player was the MVP or not. From a quick glance, it seems like there is a minor correlation between points per game and award shares. Most of the MVPs fall in the right side of the graph for points per game. However, we can't ignore all those players with high points per game and low award shares. This indicates that there must be other factors that go into determining award shares, not just points per game.
 
 Next, we analyzed win_pct vs award_share:
 
@@ -93,15 +93,19 @@ Again, this graph looks similar to the previous two graphs. It seems our advance
 
 To help identify which statistics in our data set that have the biggest impact on who earns the MVP, we created a correlation heatmap. 
 
+A correlation matrix is a table that displays the correlation coefficients between a set of variables. In a correlation matrix, each row and column represents a statistic, and the cells contain the correlation coefficient between the corresponding statistics. The correlation coefficient is a measure of the linear relationship between two statistics, ranging from -1 (a perfect negative correlation) to 1 (a perfect positive correlation), with 0 indicating no correlation. 
+
 ![heatmap](https://user-images.githubusercontent.com/112137694/220793614-644a8d40-0dec-461d-8d8d-6ef9c0fba402.png)
 
-The correlation matrix is a good way of visualizing which features are very correlated and thus can be used to highlight duplicated infromation which in some situations doesn't help the model. We can review stats that represent similar statsitics and remove them from the model. 
+The correlation matrix is a good way of visualizing which features are very correlated and thus can be used to highlight duplicated information which in some situations doesn't help the model. With the matrix, we can review stats that represent similar statsitics and not include them in the model. 
 
 Additionally, we can review which statistics are more correlated with award_share and thus the player becoming MVP. 
 
+#### Results
+
 Based on our analysis and research we determined the following:
 
-- Remove stats that are highly correlated or features that will basically represent the same thing or can be represented by some scalar multiplications
+- We can remove stats that are highly correlated or features that will basically represent the same thing or can be represented by some scalar multiplications
 - BPM and PER represent similar stat, so we only need to use one in the model
 - Points per game is directly connected with usage
 - Can remove percentages because true shooting percentage is enough
@@ -137,8 +141,7 @@ In our machine learning model, we are attempting to predict how the media will v
 ### The model
 
 #### Decision Tree Regressor
-In our first attempt, we created a Decision Tree Regressor model
-is a machine learning algorithm that predicts a continuous numeric value using a tree-like model of decisions and their outcomes. The algorithm recursively splits the data based on input feature values until a stopping criterion is met. 
+In our first attempt, we created a Decision Tree Regressor model. Decision Tree Regressor is a machine learning algorithm that predicts a continuous numeric value using a tree-like model of decisions and their outcomes. The algorithm recursively splits the data based on input feature values until a stopping criterion is met. 
  
 ![image](https://user-images.githubusercontent.com/112137694/221036803-52cf14f0-e2ca-440f-b727-5ba73f96f308.png)
 
