@@ -22,6 +22,9 @@ https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444
 MVPs Fg Pct & Fg Pct:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/13?publish=yes
 
+Relation between Stl Per G & Ast Per G
+https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/82?publish=yes
+
 Relationship between win share per 48 minute and award share and box plus/minus:
 https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/74?publish=yes
 
