@@ -24,7 +24,7 @@ First, we reviewed our data set to see what we could learn about our data:
 - Our data set includes key statistics for all NBA MVP candidates for each season since from 1980-81 through 2017-18
 - There are 38 seasons in the data set
 - This data set includes statistics for all MVP candidates (players) for each season
-- Each season has between 10-31 players
+- Each season has between 10-31 MVP candidates (players)
 
 ![image](https://user-images.githubusercontent.com/112137694/220791298-e482e5c2-e6df-4556-b22c-c1ac2676af23.png)
 
@@ -38,7 +38,7 @@ To better understand our data, we had to perform research on how the NBA MVP is 
 #### What do the stats mean?
 ![image](https://user-images.githubusercontent.com/112137694/220790365-df2db091-03ec-4cf0-9210-822ffe5d9ffb.png)
 
-[source](https://www.basketball-reference.com/about/glossary.html)
+([source](https://www.basketball-reference.com/about/glossary.html))
 
 There are different types of statistics being taken into consideration for our MVPs:
 
@@ -50,14 +50,14 @@ Additionally, there are some columns and stats that we cannot use for our machin
 - votes_first
 - points_won
 - points_max
-- award_share
+- award_share (points_won/points_max)
 
 #### How is the MVP selected?
 The NBA MVP (Most Valuable Player) is selected by a panel of sportswriters and broadcasters from the United States and Canada, who vote at the end of the regular season. The voting process involves each panelist selecting five players for the award, ranked in order from first to fifth place.
 
 The NBA uses a points system to determine the winner, with each first-place vote worth 10 points, each second-place vote worth 7 points, each third-place vote worth 5 points, each fourth-place vote worth 3 points, and each fifth-place vote worth 1 point. The player with the highest point total is awarded the NBA MVP.
 
-In our data set, we can determine the MVP for each season based on points_won and award_share. award_share = points_won/points_max
+In our data set, we can determine the MVP for each season based on points_won and award_share. 
 
 To show who won the MVP in our dataset, we added a column called Mvp? and set all values to No.
 
@@ -69,13 +69,13 @@ Then, we looped through our dataset and updated the column to be Yes for the pla
 ![image](https://user-images.githubusercontent.com/112137694/220793560-3ea71acb-f500-4606-abc4-5b8de5fd2cde.png)
 
 ### Identifying the most important statistics
-We started our exploratory analysis of our data to try and visualize the relationship between some advanced statistics and award_share
+In our model, our target variable will be award_share. We started our exploratory analysis of our data to try and visualize the relationship between some advanced statistics and award_share.
 
 The first graph we created was for points_per_g vs award_share
 
 ![pts_per_g_vs_award_share](https://user-images.githubusercontent.com/112137694/220794361-6536a573-fd97-44b7-b1e3-2437ab401d75.png)
 
-In the graph we plotted all players from all seasons and then we changed the color of the points to depend on if the player was the MVP or not. From a quick glance, it seems like there is a minor correlation between points per game and award shares. However, we can't ignore all those players with high points per game and low award shares. This means there must be other factors affecting award shares.
+In the graph we plotted all players from all seasons and then we changed the color of the points to depend on if the player was the MVP or not. From a quick glance, it seems like there is a minor correlation between points per game and award shares. However, we can't ignore all those players with high points per game and low award shares. This indicates that there must be other factors affecting award shares.
 
 Next, we analyzed win_pct vs award_share:
 
@@ -102,11 +102,11 @@ Additionally, we can review which statistics are more correlated with award_shar
 Based on our analysis and research we determined the following:
 
 - Remove stats that are highly correlated or features that will basically represent the same thing or can be represented by some scalar multiplications
-- BPM and PER represent similar stat.
+- BPM and PER represent similar stat, so we only need to use one in the model
 - Points per game is directly connected with usage
-- Can remove percentages because true shooting percentage is enough. Also, WS per 48 can be removed since it is just a scaled value of WS
-- Also, the attempts will be removed since they are included in usage stat.
-- Since per and BPM model similiar stat, only need to use one stat in the model
+- Can remove percentages because true shooting percentage is enough
+- WS per 48 can be removed since it is just a scaled value of WS
+- The attempts stats will be removed since they are included in other stats
 
 #### Stastics to be used in our model
 From our evaluation and exploratory analysis, the final metrics we have decided to use in our model include:
@@ -128,9 +128,10 @@ In our machine learning model, we are attempting to predict how the media will v
 - Can we predict how the media will vote for players this season and if they will be the MVP?
 
 ### Setting up the data
-![image](https://user-images.githubusercontent.com/112137694/220798322-b9551c0a-dbc4-49f6-bd22-1505e85ea12a.png)
+![image](https://user-images.githubusercontent.com/112137694/221036598-ed70dc20-44a3-4681-8ef1-9be320739a53.png)
+![image](https://user-images.githubusercontent.com/112137694/221036650-67809d47-9018-4803-b9f0-829991b6aeb6.png)
 
-- the dataframe we used included our mvp_statistics cvs file
+- we read our mvp_statistics cvs file into a dataframe
 - we dropped the first column which was unnamed and had no data
 
 ### The model
@@ -139,30 +140,32 @@ In our machine learning model, we are attempting to predict how the media will v
 In our first attempt, we created a Decision Tree Regressor model
 is a machine learning algorithm that predicts a continuous numeric value using a tree-like model of decisions and their outcomes. The algorithm recursively splits the data based on input feature values until a stopping criterion is met. 
  
-![image](https://user-images.githubusercontent.com/112137694/220798521-713e2ba3-a18e-4491-bb40-8656ee0b1862.png)
+![image](https://user-images.githubusercontent.com/112137694/221036803-52cf14f0-e2ca-440f-b727-5ba73f96f308.png)
 
 In this model, we imported the DecisionTreeRegressor algorithm from the sklearn library. We created a list containing 30 random seasons for the training seasons out of the 38. For the testing seasons, we created a list of the remaining 8 seasons. The code was explicitly written this way, where no training season was included in the testing season to ensure the model was not provided with helpful information to determine who the MVP was.
 
 Next, we created a new dataframe from the validation features and added a prediction column. The prediction column is where the model will predict the award_shares.
 
-![image](https://user-images.githubusercontent.com/112137694/220798902-924f62ff-8db6-4e93-8e7e-e3869d3b265d.png)
+![image](https://user-images.githubusercontent.com/112137694/221036976-8f5f32e9-09a5-4bb1-9199-426bd5a7a539.png)
 ![image](https://user-images.githubusercontent.com/112137694/220798986-19f06ef9-0cc3-4cde-805e-969a467afd49.png)
 
 We then added code to add a new column to our dataframe of validation features to display who the predicted MVP for each season is, based on the prediction column. 
 
-![image](https://user-images.githubusercontent.com/112137694/220799119-0542cc81-097c-41ca-8df9-05ce267a0cec.png)
+![image](https://user-images.githubusercontent.com/112137694/221037141-648312ac-9ef1-4bfe-84b6-7f05d4368c42.png)
 
 ##### Results of the model
 
 The Decision Tree Regressor model was able to predict the MVP for 4 out of the 8 seasons (50%).
 
-We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
+We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared) to evaluate the performance of our regression model.
 
 ![image](https://user-images.githubusercontent.com/112137694/220799296-1553cd72-3e95-4ec0-86f5-8aaa8e6c41a6.png)
 
-- MSE of 0.07881568253968253 indicates that, on average, the model's predictions deviate by 0.08 from the actual target values. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
-- MAE of 0.1669682539682539 indicates that, on average, the model's predictions deviate by 0.14 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
+- MSE of 0.07881568253968253 indicates that, the average squared difference between the predicted and actual values of the dependent variable is relatively small. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
+- MAE of 0.1669682539682539 indicates that, the average absolute difference between the predicted and actual values of the dependent variable is relatively large. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
 - The R-Squared value of -0.1454585206389547 indicates the proportion of variance in the target variable that can be explained by the features. In general, a high R-Squared value indicates that the model is a good fit for the data, while a low R-Squared value indicates that the model may not be a good fit for the data.
+
+The R-squared value is -0.145, which means that the model is not fitting the data well and is performing worse than a model that simply predicts the mean value of the dependent variable.
 
 #### Linear Regression Model
 
@@ -174,7 +177,9 @@ In this model, we imported the LinearRegression algorithm from the sklearn libra
 
 ![image](https://user-images.githubusercontent.com/112137694/220800068-fa975933-bc93-4e98-b0b6-00bce77539a8.png)
 
-(This code is the same as the first model: we created a new DF, added the column for mvp_prediction, added a column to show who won mvp based on predicition)
+(This code is the same as the first model: we created a new DF, added the column for mvp_prediction, and added a column to show who won mvp based on predicition)
+
+![image](https://user-images.githubusercontent.com/112137694/221038356-4423e0fd-64a5-4901-924e-a67c82084b50.png)
 
 ##### Results of the model
 
@@ -184,36 +189,42 @@ We then calculated the mean squared error (MSE), mean absolute error (MAE), and 
 
 ![image](https://user-images.githubusercontent.com/112137694/220800284-9e235907-b480-4774-80da-532fcc43063b.png)
 
-- MSE of 0.029840141347939504 indicates that, on average, the model's predictions deviate by 0.03 from the actual target values. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
-- MAE of 0.1351533088374249 indicates that, on average, the model's predictions deviate by 0.14 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
+- MSE of 0.029840141347939504 indicates that, on average, the model's predictions deviate by 0.03 from the squared target values. The smaller the MSE, the better the model's predictions.
+- MAE of 0.1351533088374249 indicates that, on average, the model's predictions deviate by 0.14 from the actual target values. 
 - The R-Squared value of 0.5663217894882959 indicates the proportion of variance in the target variable that can be explained by the features. An R-Squared value of 0.566 means that 56.6% of the variance in the target variable can be explained by the features. 
+
+The R2 value is 0.5663. This is a moderate level of explanation, indicating that the model has some predictive power and is performing better than a model that simply predicts the mean value of the dependent variable.
 
 Overall, this model is way more accurate than the decision tree model, as seen by the statistics and our MVP predictions.
 
-### Random Forest Regressor Model
-The last model we tried was the random forest regressor model. We chose this model because __. We started the model out similarly to the previous two, by creating the same initial dataframe.
+#### Random Forest Regressor Model
+We weren't satisfied with our linear regression model and decided to attempt another one. The last model we tried was the random forest regressor model. In a random forest regressor, a large number of decision trees are created using a random subset of the features and training samples. Each decision tree is trained on a different subset of the data and features, which introduces randomness and reduces overfitting. When predicting the value of a new data point, each decision tree in the forest predicts a value, and the final prediction is obtained by taking the average of all the predictions.
+
+We started the model out similarly to the previous two.
 
 ![image](https://user-images.githubusercontent.com/112137694/220800548-b03cfa20-a63d-4040-9cb2-143a6c72c84f.png)
 
-In this model, we imported the RandomForestRegressor algorithm from the sklearn library. We used the same seasons for training and testing as the previous two models. 
+In this model, we imported the RandomForestRegressor algorithm from the sklearn library. We used the same seasons for training and testing as the previous two models. We also used the same features and target variable. 
 
 ![image](https://user-images.githubusercontent.com/112137694/220800785-d698976c-cc34-4091-9b42-03a714fd8336.png)
 
-We then took the same steps of creating a new dataframe with the features used in the model, the player, and season. We then added a new column called mvp_predictions where we populated the models prediction of award_share for each player. Then, we added a column that showed us which players the model would predict would win the MVP based on mvp_prediction (predicted award_shares). 
+We then took the same steps of creating a new dataframe with the validation features used in the model, the player, and season. We then added a new column called mvp_predictions where we populated the models prediction of award_share for each player. Then, we added a column that showed us which players the model would predict would win the MVP based on mvp_prediction (predicted award_shares). 
 
 ![image](https://user-images.githubusercontent.com/112137694/220801002-33fcf655-ff2c-4259-bb70-03b1c7e06941.png)
 
-This model was able to accurately predict who would win the MVP for 6 out of the 8 testing seasons, for a 75% accuracy.
+This model was able to accurately predict who would win the MVP for 6 out of the 8 testing seasons (75%).
 
 We then calculated the mean squared error (MSE), mean absolute error (MAE), and r2 (r-quared).
 
 ![image](https://user-images.githubusercontent.com/112137694/220801180-24c3358b-817f-4730-8f7d-663ed42b2498.png)
 
-- MSE of 0.022307539351587306 indicates that, on average, the model's predictions deviate by 0.022 from the actual target values. This value is expressed in the units of the target variable, so you can use it to determine the magnitude of the error. The smaller the MSE, the better the model's predictions.
-- MAE of 0.09895563492063493 indicates that, on average, the model's predictions deviate by 0.099 from the actual target values. This value is expressed in the units of the target variable and gives a more interpretable measure of the model's accuracy, since it is expressed in the same units as the target variable.
+- MSE of 0.022307539351587306 indicates that, on average, the squared difference between the predicted and actual values of the dependent variable is relatively small. The smaller the MSE, the better the model's predictions.
+- MAE of 0.09895563492063493 indicates that, on average, the absolute difference between the predicted and actual values of the dependent variable is relatively small.
 - The R-Squared value of 0.6757959811881447 indicates the proportion of variance in the target variable that can be explained by the features. An R-Squared value of 0.675 means that 67.5% of the variance in the target variable can be explained by the features, while 32.5% of the variance is unexplained. 
 
-This model is the most accurate out of every model we attempted. An r-squared value of 0.675 is good for our model
+The R2 value is 0.6758. This is a moderately high level of explanation, indicating that the model has a good predictive power and is performing better than a model that simply predicts the mean value of the dependent variable.
+
+This model is the most accurate out of every model we attempted. Overall, the results suggest that the regression model has a good level of accuracy and is able to predict the dependent variable with a good degree of precision. However, there may still be room for improvement in terms of the model's accuracy and predictive power.
 
 ## Dashboard
 [Tableau Dashboard](https://public.tableau.com/app/profile/li.yan.shao/viz/Final_Project_16757209444750/1_1?publish=yes)
