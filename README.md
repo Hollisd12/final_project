@@ -1,5 +1,9 @@
 # final_project
 
+## Overview of the project ##
+
+This project is designed to analyze basketball player statistics and determine if we can accurately predict who will win the NBA's MVP (most valuable player) of the season using machine learning. Essentially, we are attempting to model how the media will vote for players based on their statistics.
+
 ## Segment 1 tasks
 
 ### Topic and dataset
